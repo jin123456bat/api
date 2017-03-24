@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>项目列表</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/global/css/font.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        {%include file='front/public/header.html'%}
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                {%include file='front/public/sidebar.html'%}
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    {%include file='front/public/style.html'%}
+                    <!-- END THEME PANEL -->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="index.php">首页</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>项目列表</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- BEGIN PAGE TITLE-->
+                    <h3 class="page-title"> 项目列表
+                        <small>所有项目</small>
+                    </h3>
+                    <!-- END PAGE TITLE-->
+                    <!-- END PAGE HEADER-->
+                    <!-- BEGIN : LISTS -->
+                    
+                    
+                    <div class="row">
+                        
+                        
+                        <div class="col-lg-4">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">我的项目</span>
+                                        <div class="caption-desc font-grey-cascade"> 我发起的项目 </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="mt-element-list">
+                                        <div class="mt-list-head list-news ext-1 font-white bg-grey-gallery">
+                                            <div class="list-head-title-container">
+                                                <h3 class="list-title">项目列表</h3>
+                                            </div>
+                                            <div class="list-count pull-right bg-red">{%count($myProject)%}</div>
+                                        </div>
+                                        <div class="mt-list-container list-news ext-1">
+                                            <ul>
+												{%section name=myProject loop=$myProject%}
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <a href="{%url a=project id=$myProject[myProject].id%}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-thumb">
+                                                        <a href="{%url a=project id=$myProject[myProject].id%}">
+                                                            <img alt="" onerror="this.src='{%$VIEW_ROOT%}/assets/global/img/portfolio/600x600/01.jpg';" src="{%resource file=$myProject[myProject].logo%}" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-datetime bold uppercase font-red"> {%$myProject[myProject].createtime|date_format:"Y-m-d H:i:s"%} </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="{%url a=project id=$myProject[myProject].id%}">{%$myProject[myProject].name%}</a>
+                                                        </h3>
+                                                        <p>{%$myProject[myProject].description%}</p>
+                                                    </div>
+                                                </li>
+                                               {%/section%}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						
+						
+						<div class="col-lg-4">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">参与项目</span>
+                                        <div class="caption-desc font-grey-cascade"> 我参加的项目 </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="mt-element-list">
+                                        <div class="mt-list-head list-news ext-1 font-white bg-grey-gallery">
+                                            <div class="list-head-title-container">
+                                                <h3 class="list-title">项目列表</h3>
+                                            </div>
+                                            <div class="list-count pull-right bg-red">{%count($joinProject)%}</div>
+                                        </div>
+                                        <div class="mt-list-container list-news ext-1">
+                                            <ul>
+												{%section name=joinProject loop=$joinProject%}
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <a href="{%url a=project id=$joinProject[joinProject].id%}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-thumb">
+                                                        <a href="{%url a=project id=$joinProject[joinProject].id%}">
+                                                            <img alt="" onerror="this.src='{%$VIEW_ROOT%}/assets/global/img/portfolio/600x600/01.jpg';" src="{%resource file=$joinProject[joinProject].logo%}" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-datetime bold uppercase font-red"> {%$joinProject[joinProject].createtime|date_format:"Y-m-d H:i:s"%} </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="{%url a=project id=$joinProject[joinProject].id%}">{%$joinProject[joinProject].name%}</a>
+                                                        </h3>
+                                                        <p>{%$joinProject[joinProject].description%}</p>
+                                                    </div>
+                                                </li>
+                                               {%/section%}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						
+						
+						<div class="col-lg-4">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">完成项目</span>
+                                        <div class="caption-desc font-grey-cascade"> 已经完成了的项目 </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="mt-element-list">
+                                        <div class="mt-list-head list-news ext-1 font-white bg-grey-gallery">
+                                            <div class="list-head-title-container">
+                                                <h3 class="list-title">项目列表</h3>
+                                            </div>
+                                            <div class="list-count pull-right bg-red">0</div>
+                                        </div>
+                                        <div class="mt-list-container list-news ext-1">
+                                            <ul>
+												{%section name=completeProject loop=$completeProject%}
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <a href="{%url a=project id=$completeProject[completeProject].id%}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-thumb">
+                                                        <a href="{%url a=project id=$completeProject[completeProject].id%}">
+                                                            <img alt="" onerror="this.src='{%$VIEW_ROOT%}/assets/global/img/portfolio/600x600/01.jpg';" src="{%resource file=$completeProject[completeProject].logo%}" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="list-datetime bold uppercase font-red"> {%$completeProject[completeProject].createtime|date_format:"Y-m-d H:i:s"%} </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="{%url a=project id=$completeProject[completeProject].id%}">{%$completeProject[completeProject].name%}</a>
+                                                        </h3>
+                                                        <p>{%$completeProject[completeProject].description%}</p>
+                                                    </div>
+                                                </li>
+                                               {%/section%}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						
+						
+						
+						
+                    </div>
+                    
+                    <!-- END : LISTS -->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            {%include file='front/public/slider.html'%}
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        {%include file='front/public/footer.html'%}
+        <!-- END FOOTER -->
+        <!--[if lt IE 9]>
+<script src="{%$VIEW_ROOT%}/assets/global/plugins/respond.min.js"></script>
+<script src="{%$VIEW_ROOT%}/assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="{%$VIEW_ROOT%}/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="{%$VIEW_ROOT%}/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
+
+</html>

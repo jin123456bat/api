@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>共享文件</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/global/css/font.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{%$VIEW_ROOT%}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        {%include file='front/public/header.html'%}
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            {%include file='front/public/sidebar.html'%}
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    {%include file='front/public/style.html'%}
+                    <!-- END THEME PANEL -->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="index.php">首页</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>共享文件</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- BEGIN PAGE TITLE-->
+                    <h3 class="page-title"> 共享文件
+                        <small>共享文件</small>
+                    </h3>
+                    <!-- END PAGE TITLE-->
+                    <!-- END PAGE HEADER-->
+                    <div class="portlet light bordered">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="icon-settings font-dark"></i>
+								<span class="caption-subject font-dark sbold uppercase">文件列表</span>
+							</div>
+							<div class="actions">
+								<div class="btn-group btn-group-devided" data-toggle="buttons">
+									<input id="upload" type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm active" name="upload" value="上传文件">
+								</div>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<table class="table table-hover" id="file">
+							<thead>
+								<tr>
+									<th>文件名</th><th>上传人</th><th>大小</th><th>上传时间</th><th>备注</th><th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+							
+							{%section name=file loop=$file%}
+							<tr data-id="{%$file[file].id%}">
+								<td>{%$file[file].name%}</td>
+                                <td>{%$file[file].user%}</td>
+								<td>{%formatSize size=$file[file].size%}</td>
+								<td>{%$file[file].uploadtime|date_format:'Y-m-d H:i:s'%}</td>
+                                <td>{%$file[file].note%}</td>
+								<td><button class="btn yellow btn-outline btn-circle btn-xs download">下载</button><button class="btn red btn-outline btn-circle btn-xs remove">删除</button></td>
+							</tr>
+							{%/section%}
+							</tbody>
+							</table>
+						</div>
+					</div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            {%include file='front/public/slider.html'%}
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        {%include file='front/public/footer.html'%}
+        <!-- END FOOTER -->
+        <!--[if lt IE 9]>
+<script src="{%$VIEW_ROOT%}/assets/global/plugins/respond.min.js"></script>
+<script src="{%$VIEW_ROOT%}/assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="{%$VIEW_ROOT%}/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="{%$VIEW_ROOT%}/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="{%$VIEW_ROOT%}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+		<script type="text/javascript">
+		$.ajaxSetup({
+			headers:{
+				'X-CSRF-TOKEN':'{%$x_csrf_token%}'
+			}
+		});
+		
+		function getNowFormatDate() {
+			var date = new Date();
+			var seperator1 = "-";
+			var seperator2 = ":";
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+					+ " " + date.getHours() + seperator2 + date.getMinutes()
+					+ seperator2 + date.getSeconds();
+			return currentdate;
+		}
+		
+		function formatSize(size)
+		{
+			var temp = ['字节','KB','MB','GB','TB'];
+			var index = 0;
+			size = parseInt(size);
+			while(size > 1024)
+			{
+				index++;
+				size = size/1024;
+			}
+			return parseFloat(size).toFixed(2) + temp[index];
+		}
+		
+		$('#file').on('click','.remove',function(){
+			var id = $(this).parents('tr').data('id');
+			var ths = $(this);
+			$.post('{%url m=ajax c=file a=remove%}',{id:id},function(response){
+				if(response.code==1)
+				{
+					ths.parents('tr').remove();
+				}
+				else
+				{
+					App.alert({
+						container: $('#alert_container').val(), // alerts parent container 
+						place: 'append', // append or prepent in container 
+						type: 'success', // alert's type 
+						message: response.result,
+						close: true,
+						focus: true, // auto scroll to the alert after shown
+						closeInSeconds: 3, // auto close after defined seconds 
+						icon:'fa fa-check' // put icon class before the message
+					});
+				}
+			});
+			return false;
+		});
+		
+		$('#file').on('click','.download',function(){
+			var url = '{%url c=file a=download%}&id='+$(this).parents('tr').data('id');
+			window.open(url,'new');
+		});
+		
+		var ajax = [];
+		
+		$('#file').on('click','.quit',function(){
+			var process = $(this).parents('tr').data('process');
+			ajax[process].abort();
+			var name = $(this).parents('tr').find('.name').html();
+			$(this).parents('tr').remove();
+			$.post('{%url c=file a=clear%}',{name:name},function(){
+			});
+			return false;
+		});
+
+		$('#upload').on('click',function(){
+			var input = $('<input type="file">');
+			input.trigger('click');
+			input.on('change',function(){
+				var file = $(this)[0].files[0],  //文件对象
+                name = file.name,        //文件名
+                size = file.size;        //总大小
+            	var succeed = [];
+				
+				var shardSize = 1 * 1024 * 1024,    //以1MB为一个分片
+                sharedCount = Math.ceil(size / shardSize);  //总片数
+				
+				var key = Math.ceil(Math.random() * 1000000000);
+				succeed[key] = 0;
+				
+				
+				for(var i = 0;i < sharedCount;++i){
+					//计算每一片的起始与结束位
+					var start = i * shardSize,
+						end = Math.min(size, start + shardSize);
+					//构造一个表单，FormData是HTML5新增的
+					var form = new FormData();
+					form.append("data", file.slice(start,end));  //slice方法用于切出文件的一部分
+					form.append("name", name);
+					form.append('key',key);
+					form.append("total", sharedCount);  //总片数
+					form.append("index", i + 1);        //当前是第几片
+					form.append('pid','{%$smarty.get.id%}');
+					//Ajax提交
+					ajax[key] = $.ajax({
+						timeout:0,
+						url: "{%url c=file a=upload%}",
+						type: "POST",
+						data: form,
+						async: true,        //异步
+						processData: false,  //很重要，告诉jquery不要对form进行处理
+						contentType: false,  //很重要，指定为false才能形成正确的Content-Type
+						error:function(e){
+							App.alert({
+								container: $('#alert_container').val(), // alerts parent container 
+								place: 'append', // append or prepent in container 
+								type: 'success', // alert's type 
+								message: '错误了？',
+								close: true,
+								focus: true, // auto scroll to the alert after shown
+								closeInSeconds: 3, // auto close after defined seconds 
+								icon:'fa fa-check' // put icon class before the message
+							});
+						},
+						success: function(response){
+							try
+							{
+								//这里应该是上传进度
+								succeed[key]++;
+								
+								if(response.code==101)
+								{
+									var tpl = '<tr data-process="'+response.body.id+'" id="file_'+response.body.id+'"><td class="name">'+name+'</td><td>'+response.uid+'</td><td class="size"><div class="progress progress-striped active"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only"> 0% </span></div></div></td><td>'+getNowFormatDate()+'</td><td></td><td class="dosomething"><button class="btn btn-transparent green btn-outline btn-circle btn-xs quit">取消</button></td></tr>';
+									$('#file tbody').prepend(tpl);
+								}
+								else if(response.code==102)
+								{
+									var percent = Math.ceil(succeed[response.body]/sharedCount * 100);
+									$('#file_'+response.body).find('.progress-bar').width(percent+'%');
+								}
+								else if(response.code==1)
+								{
+									if($('#file_'+response.body.key).length == 0)
+									{
+										var tpl = '<tr data-id="'+response.body.id+'" id="file_'+response.body.id+'"><td>'+name+'</td><td>'+response.uid+'</td><td class="size">'+formatSize(response.body.size)+'</td><td>'+getNowFormatDate()+'</td><td></td><td><button class="btn btn-transparent yellow btn-outline btn-circle btn-xs download">下载</button><button class="btn btn-transparent red btn-outline btn-circle btn-xs remove">删除</button></td></tr>';
+										$('#file tbody').prepend(tpl);
+									}
+									else
+									{
+										$('#file_'+response.body.key).attr('data-id',response.body.id);
+										$('#file_'+response.body.key).find('.size').html(formatSize(response.body.size));
+										$('#file_'+response.body.key).find('.dosomething').empty();
+										$('#file_'+response.body.key).find('.dosomething').append('<button class="btn btn-transparent yellow btn-outline btn-circle btn-xs download">下载</button><button class="btn btn-transparent red btn-outline btn-circle btn-xs remove">删除</button>');
+									}
+								}
+							}
+							catch(e)
+							{
+								App.alert({
+									container: $('#alert_container').val(), // alerts parent container 
+									place: 'append', // append or prepent in container 
+									type: 'success', // alert's type 
+									message: '上传失败',
+									close: true,
+									focus: true, // auto scroll to the alert after shown
+									closeInSeconds: 3, // auto close after defined seconds 
+									icon:'fa fa-check' // put icon class before the message
+								});
+							}
+						}
+					});
+				}
+			});
+		});
+		</script>
+    </body>
+
+</html>
