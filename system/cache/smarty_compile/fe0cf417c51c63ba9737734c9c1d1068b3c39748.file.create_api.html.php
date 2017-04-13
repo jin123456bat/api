@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-04 14:23:42
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 15:35:32
          compiled from "D:\wamp\www\api\application\template\front\create_api.html" */ ?>
 <?php /*%%SmartyHeaderCode:2319256d68b0b447099-20513133%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'fe0cf417c51c63ba9737734c9c1d1068b3c39748' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\create_api.html',
-      1 => 1457072622,
+      1 => 1492068927,
       2 => 'file',
     ),
   ),
@@ -20,6 +20,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'VIEW_ROOT' => 0,
+    'param_type' => 0,
+    'type' => 0,
     'x_csrf_token' => 0,
   ),
   'has_nocache_code' => false,
@@ -161,6 +163,30 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 										<div class="col-md-9">
 											<input type="number" class="form-control input-inline input-medium" name="version" value="1">
 											<span class="help-inline"> 默认版本号. </span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-1 control-label">是否允许调试</label>
+										<div class="col-md-9">
+											<input type="checkbox" class="form-control input-inline input-medium" name="debug" checked="checked">
+											<span class="help-inline"> 开启可以使用内置调试器调试. </span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-1 control-label">参数转化</label>
+										<div class="col-md-9">
+											<select name="param_type" class="form-control input-inline input-medium">
+												<?php  $_smarty_tpl->tpl_vars['type'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['type']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['param_type']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['type']->key => $_smarty_tpl->tpl_vars['type']->value) {
+$_smarty_tpl->tpl_vars['type']->_loop = true;
+?>
+												<option value="<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+" <?php if ($_smarty_tpl->tpl_vars['type']->value=='common') {?>selected="selected"<?php }?>><?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+</option>
+												<?php } ?>
+											</select>
+											<span class="help-inline"> 继承parameter类可以实现请求参数转化. </span>
 										</div>
 									</div>
 									<div class="form-group">
@@ -335,6 +361,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			var response = $(this).find('textarea[name=response]').val();
 			var description = $(this).find('input[name=description]').val();
 			var note = $(this).find('textarea[name=note]').val();
+			var debug = $(this).find('input[name=debug]:checked').length;
+			var param_type = $(this).find('select[name=param_type]').val();
 			
 			var parameter = [];
 			$.each($('#parameter').find('input[name=name]'),function(index,value){
@@ -343,7 +371,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					var tmp = {};
 					tmp['name'] = $(value).parents('tr').find('input[name=name]').val();
 					tmp['type'] = $(value).parents('tr').find('select[name=type]').val();
-					tmp['method'] = $(value).parents('tr').find('.method:checked').val();
+					tmp['method'] = $(value).parents('tr').find('input[name=method][checked]').val();
 					tmp['need'] = $(value).parents('tr').find('input[name=need]:checked').length;
 					tmp['length_min'] = $(value).parents('tr').find('input[name=length_min]').val();
 					tmp['length_max'] = $(value).parents('tr').find('input[name=length_max]').val();
@@ -356,7 +384,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'create'),$_smarty_tpl);?>
 ',{id:'<?php echo $_GET['id'];?>
-',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter},function(response){
+',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter,debug:debug,param_type:param_type},function(response){
 				if(response.code==1)
 				{
 					window.location = '<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'api'),$_smarty_tpl);?>

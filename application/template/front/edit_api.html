@@ -131,6 +131,17 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-md-1 control-label">参数转化</label>
+										<div class="col-md-9">
+											<select name="param_type" class="form-control input-inline input-medium">
+												{%foreach from=$param_type item=type%}
+												<option {%if $type==$c_api.param_type%}selected="selected"{%/if%} value="{%$type%}">{%$type%}</option>
+												{%/foreach%}
+											</select>
+											<span class="help-inline"> 继承parameter类可以实现请求参数转化. </span>
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-md-1 control-label">请求参数</label>
 										<div class="col-md-9">
 											<table class="table table-bordered table-striped table-condensed flip-content" id="parameter">
@@ -317,7 +328,7 @@
 			var description = $(this).find('input[name=description]').val();
 			var note = $(this).find('textarea[name=note]').val();
 			var debug = $(this).find('input[name=debug]:checked').length;
-			
+			var param_type = $(this).find('select[name=param_type]').val();
 			
 			var parameter = [];
 			$.each($('#parameter').find('input[name=name]'),function(index,value){
@@ -337,7 +348,7 @@
 				}
 			});
 			
-			$.post('{%url m=ajax c=api a=edit%}',{id:'{%$smarty.get.id%}',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter,debug:debug},function(response){
+			$.post('{%url m=ajax c=api a=edit%}',{id:'{%$smarty.get.id%}',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter,debug:debug,param_type:param_type},function(response){
 				if(response.code==1)
 				{
 					window.location = '{%url a=api id=$smarty.get.id%}';

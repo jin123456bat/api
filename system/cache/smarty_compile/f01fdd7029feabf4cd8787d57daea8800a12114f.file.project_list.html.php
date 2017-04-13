@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-03 17:23:30
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 10:02:05
          compiled from "D:\wamp\www\api\application\template\front\project_list.html" */ ?>
 <?php /*%%SmartyHeaderCode:1741156d65cf64b7953-74880007%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f01fdd7029feabf4cd8787d57daea8800a12114f' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\project_list.html',
-      1 => 1456997008,
+      1 => 1457082795,
       2 => 'file',
     ),
   ),
@@ -181,8 +181,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['myProject']['last']       = 
                                                     <div class="list-thumb">
                                                         <a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'project','id'=>$_smarty_tpl->tpl_vars['myProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['myProject']['index']]['id']),$_smarty_tpl);?>
 ">
-                                                            <img alt="" onerror="this.src='http://<?php echo $_SERVER['HTTP_HOST'];?>
-/api/application/template/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['myProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['myProject']['index']]['logo']),$_smarty_tpl);?>
+                                                            <img alt="" onerror="this.src='<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
+/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['myProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['myProject']['index']]['logo']),$_smarty_tpl);?>
 " />
                                                         </a>
                                                     </div>
@@ -261,8 +261,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['joinProject']['last']       
                                                     <div class="list-thumb">
                                                         <a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'project','id'=>$_smarty_tpl->tpl_vars['joinProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['joinProject']['index']]['id']),$_smarty_tpl);?>
 ">
-                                                            <img alt="" onerror="this.src='http://<?php echo $_SERVER['HTTP_HOST'];?>
-/api/application/template/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['joinProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['joinProject']['index']]['logo']),$_smarty_tpl);?>
+                                                            <img alt="" onerror="this.src='<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
+/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['joinProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['joinProject']['index']]['logo']),$_smarty_tpl);?>
 " />
                                                         </a>
                                                     </div>
@@ -340,8 +340,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['completeProject']['last']   
                                                     <div class="list-thumb">
                                                         <a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'project','id'=>$_smarty_tpl->tpl_vars['completeProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['completeProject']['index']]['id']),$_smarty_tpl);?>
 ">
-                                                            <img alt="" onerror="this.src='http://<?php echo $_SERVER['HTTP_HOST'];?>
-/api/application/template/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['completeProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['completeProject']['index']]['logo']),$_smarty_tpl);?>
+                                                            <img alt="" onerror="this.src='<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
+/assets/global/img/portfolio/600x600/01.jpg';" src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource'][0][0]->resource(array('file'=>$_smarty_tpl->tpl_vars['completeProject']->value[$_smarty_tpl->getVariable('smarty')->value['section']['completeProject']['index']]['logo']),$_smarty_tpl);?>
 " />
                                                         </a>
                                                     </div>

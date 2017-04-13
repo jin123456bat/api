@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-04 15:06:47
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 11:53:48
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1457075206,
+      1 => 1459832406,
       2 => 'file',
     ),
   ),
@@ -37,7 +37,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
     <head>
         <meta charset="utf-8" />
-        <title>Metronic | Blank Page Layout</title>
+        <title>接口测试</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -143,8 +143,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 									<div class="form-group">
 										<label class="col-md-1 control-label">参数</label>
 										<div class="col-md-9">
-											<table class="table table-bordered table-striped table-condensed flip-content">
-												<tr><td>参数名</td><td>参数值</td></tr>
+											<table class="table table-bordered table-striped table-condensed flip-content" id="parameter">
+												<tr><td>参数名</td><td>提交方式</td><td>参数值</td></tr>
 												<tbody>
 												<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['name'] = 'parameter';
@@ -170,11 +170,19 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['index_next'] = 
 $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['total']);
 ?>
-												<tr><td><input type="text" class="form-control key" name="key" value="<?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['name'];?>
-"></td><td><input class="form-control value" type="text" name="value" value="<?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['demo'];?>
-"></td></tr>
+												<tr>
+													<td><input type="text" class="form-control key" name="key" value="<?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['name'];?>
+"></td>
+													<td><select class="form-control method" name="method"><option value="post" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['method']=='post') {?>selected=selected<?php }?>>POST</option><option value="get" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['method']=='get') {?>selected=selected<?php }?>>GET</option></select></td>
+													<td><input class="form-control value" type="text" name="value" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['demo']);?>
+"></td>
+												</tr>
 												<?php endfor; endif; ?>
-												<tr><td><input type="text" class="form-control key" name="key"></td><td><input class="form-control value" type="text" name="value"></td></tr>
+												<tr>
+													<td><input type="text" class="form-control key" name="key"></td>
+													<td><select class="form-control method" name="method"><option value="post">POST</option><option value="get">GET</option></select></td>
+													<td><input class="form-control value" type="text" name="value"></td>
+												</tr>
 												</tbody>
 											</table>
 										</div>
@@ -182,7 +190,21 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 									<div class="form-group">
 										<label class="col-md-1 control-label">响应结果</label>
 										<div class="col-md-9">
-											<pre class="result" style="min-height:100px;"></pre>
+											<ul class="nav nav-tabs">
+												<li class="active">
+													<a href="#body" data-toggle="tab" aria-expanded="true"> 响应内容 </a>
+												</li>
+												<li class="">
+													<a href="#header" data-toggle="tab" aria-expanded="false"> 响应头 </a>
+												</li>
+												<li class="">
+													<a><span class="badge badge-default display-none" id="last_msec"> 5MS </span></a>
+												</li>
+											</ul>
+											<div class="tab-content">
+												<pre id="body" class="result tab-pane fade active in" style="min-height:100px;"></pre>
+												<pre id="header" class="header tab-pane fade in" style="min-height:100px;"></pre>
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -195,7 +217,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 									<div class="form-group">
 										<label class="col-md-1 control-label">刷新cookie</label>
 										<div class="col-md-9">
-											<input type="checkbox" name="api_refresh_cookie">
+											<input type="checkbox" name="api_refresh_cookie" checked="checked">
 											<span class="help-block"> 将本次请求得到的cookie保存起来 </span>
 										</div>
 									</div>
@@ -270,6 +292,11 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			}
 		});
 		
+		$('#parameter').on('focus','input[name=key]:last',function(){
+			var tr = $(this).parents('tr').clone();
+			tr.insertAfter($(this).parents('tr'));
+		});
+		
 		var APP=function(){
 			var format=function(json){
 				var reg=null,
@@ -335,33 +362,82 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			};
 		}();
 		
+		function htmlspecialchars(str)    
+		{    
+			var s = "";  
+			if (str.length == 0) return "";  
+			for   (var i=0; i<str.length; i++)  
+			{  
+				switch (str.substr(i,1))  
+				{  
+					case "<": s += "&lt;"; break;  
+					case ">": s += "&gt;"; break;  
+					case "&": s += "&amp;"; break;  
+					case " ":  
+						if(str.substr(i + 1, 1) == " "){  
+							s += " &nbsp;";  
+							i++;  
+						} else s += " ";  
+						break;  
+					case "\"": s += "&quot;"; break;  
+					case "\n": s += "<br>"; break;  
+					default: s += str.substr(i,1); break;  
+				}  
+			}  
+			return s;  
+		}  
+		
 		$('#demo').on('submit',function(){
 			var key_input = $('table tbody .key');
 			var value_input = $('table tbody .value');
+			var method_input = $('table tbody .method');
 			
 			var url = $('input[name=url]').val();
 			
 			var obj = {
 				url:url,
-				api_save_cookie:$('input[name=api_with_cookie]:checked').length,
+				api_with_cookie:$('input[name=api_with_cookie]:checked').length,
 				api_refresh_cookie:$('input[name=api_refresh_cookie]:checked').length,
 			};
+			
+			obj['get'] = {};
+			obj['post'] = {};
+			
 			$.each(key_input,function(index,value){
 				if($.trim($(value).val()).length != 0)
 				{
-					obj[$(value).val()] = $(value_input).val();
+					switch($(method_input[index]).val())
+					{
+						case 'post':
+							obj['post'][$(value).val()] = $(value_input[index]).val();
+							break;
+						case 'get':
+							obj['get'][$(value).val()] = $(value_input[index]).val();
+							break;
+					}
 				}
 			});
-			
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'demo'),$_smarty_tpl);?>
 ',obj,function(response){
-				if(typeof response == 'OBJECT')
-				{
-					$('.result').html(APP.format(JSON.stringify(response)));
+				
+				
+				try{
+					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
+					$('.header').html(response.header);
+					if(response.content_type == 'image')
+					{
+						$('.result').html('<img src="'+response.content+'">');
+					}
+					else
+					{
+						$('.result').html(APP.format(response.content));
+					}
 				}
-				else
+				catch(err)
 				{
-					$('.result').html(APP.format(response));
+					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
+					$('.header').html(response.header);
+					$('.result').html(htmlspecialchars(response.content));
 				}
 			});
 			return false;

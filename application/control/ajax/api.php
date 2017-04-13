@@ -65,6 +65,7 @@ class api extends ajax
 		$note = $this->post('note','');
 		$parameters = $this->post('parameter',[]);
 		$debug = $this->post('debug',1);
+		$param_type = $this->post('param_type','common');
 		
 		
 		if($this->model('api')->where('id=?',[$id])->update([
@@ -76,7 +77,8 @@ class api extends ajax
 			'description' => $description,
 			'note' => $note,
 			'modifytime' => $_SERVER['REQUEST_TIME'],
-			'debug' => $debug
+			'debug' => $debug,
+			'param_type' => $param_type,
 		]))
 		{
 			if (is_array($parameters) && !empty($parameters))
@@ -114,7 +116,7 @@ class api extends ajax
 		$note = $this->post('note','');
 		$parameters = $this->post('parameter',[]);
 		$debug = $this->post('debug',1);
-		
+		$param_type = $this->post('param_type','common');
 		
 		if ($name == '')
 			$name = '新接口文档';
@@ -133,6 +135,7 @@ class api extends ajax
 			'modifytime' => $_SERVER['REQUEST_TIME'],
 			'isdelete' => 0,
 			'debug' => $debug,
+			'param_type' => $param_type,
 		]))
 		{
 			$api_id = $this->model('api')->lastInsertId();
@@ -211,6 +214,7 @@ class api extends ajax
 	 */
 	function demo()
 	{
+		$param_type = $this->post('param_type','common');
 		//提交的地址
 		$url = $this->post('url','');
 		if (empty($url))
@@ -225,37 +229,19 @@ class api extends ajax
 		unset($_POST['api_with_cookie']);
 		unset($_POST['api_refresh_cookie']);
 		
-		//载入全局参数
-		$partner = 'android';
-		$key = 'android';
-		
-		//加载自定义函数
-		function sign($url,$data,$partner,$key)
-		{
-			ksort($data);
-			reset($data);
-			$data = strtolower(http_build_query($data));
-			return strtoupper(md5($data.$partner.$key));
-		}
+		$classname = '\\application\\helper\\'.$param_type;
+		$class = new $classname($url);
+		$class->setGet($this->getGetParameter());
+		$class->setPost($this->getPostParamter());
 		
 		//组装get参数
 		if (strpos($url, '?') === false)
 		{
-			$url .= '?'.http_build_query($this->getGetParameter());
+			$url .= '?'.http_build_query($class->getGetParam());
 		}
 		else
 		{
-			$url .= '&'.http_build_query($this->getGetParameter());
-		}
-		
-		$parameter = [
-			'partner' => $partner,
-			'sign' => sign('',$this->getPostParamter(),$partner,$key),
-		];
-		
-		foreach ($this->getPostParamter() as $key => $value)
-		{
-			$parameter['data['.$key.']'] = $value;
+			$url .= '&'.http_build_query($class->getPostParam());
 		}
 		
 		$userHelper = new user();
@@ -264,7 +250,7 @@ class api extends ajax
 		$curl = curl_init($url);
 		curl_setopt ( $curl, CURLOPT_POST, 1 );
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt ( $curl, CURLOPT_POSTFIELDS, $parameter );
+		curl_setopt ( $curl, CURLOPT_POSTFIELDS, $class->getPostParam() );
 		curl_setopt ( $curl, CURLOPT_TIMEOUT, 5);
 		curl_setopt ( $curl, CURLOPT_HEADER, true);
 		

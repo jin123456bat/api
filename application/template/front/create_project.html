@@ -243,7 +243,7 @@
 					$.post('{%url m=ajax c=project a=create%}',{name:name,description:description,logo:logo,host:host,introduction:introduction},function(response){
 						if(response.code==1)
 						{
-							window.location = '{%url a=project%}';
+							window.location = './index.php?a=project&id='+response.body;
 						}
 					});
 				}

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-03 18:33:17
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 10:02:06
          compiled from "D:\wamp\www\api\application\template\front\public\sidebar.html" */ ?>
 <?php /*%%SmartyHeaderCode:3245356d55d391df154-56128733%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '5087449193da5c38df1be9785e6c9f25cf1045d6' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\public\\sidebar.html',
-      1 => 1457001147,
+      1 => 1458637325,
       2 => 'file',
     ),
   ),
@@ -83,7 +83,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				<span class="title">垃圾箱</span>
 			</a>
 		</li>
-		<?php if ($_GET['a']=='project'||$_GET['a']=='create_api'||$_GET['a']=='api'||$_GET['a']=='edit_api'||$_GET['a']=='demo') {?>
+		<?php if ($_GET['a']=='project'||$_GET['a']=='create_api'||$_GET['a']=='api'||$_GET['a']=='edit_api'||$_GET['a']=='demo'||$_GET['a']=='file'||$_GET['a']=='module') {?>
 		<li class="heading">
 			<h3 class="uppercase">接口列表</h3>
 		</li>
@@ -95,7 +95,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </span>
 			</a>
 		</li>
-		<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['group'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['group']);
+		<li class="nav-item <?php if ($_GET['a']=='create_api'||$_GET['a']=='api'||$_GET['a']=='edit_api'||$_GET['a']=='demo') {?>open<?php }?>">
+			<a href="javascript:;" class="nav-link nav-toggle">
+				<i class="icon-folder"></i>
+				<span class="title">接口文档</span>
+				<span class="arrow <?php if ($_GET['a']=='create_api'||$_GET['a']=='api'||$_GET['a']=='edit_api'||$_GET['a']=='demo') {?>open<?php }?>"></span>
+			</a>
+			<ul class="sub-menu" <?php if ($_GET['a']=='create_api'||$_GET['a']=='api'||$_GET['a']=='edit_api'||$_GET['a']=='demo') {?>style="display:block;"<?php }?>>
+				<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['group'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['group']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['name'] = 'group';
 $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['loop'] = is_array($_loop=$_smarty_tpl->tpl_vars['group']->value) ? count($_loop) : max(0, (int) $_loop); unset($_loop);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['show'] = true;
@@ -119,22 +126,22 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['index_next'] = $_sm
 $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['group']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['group']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['group']['total']);
 ?>
-		<li class="nav-item level-0 dragable <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='edit_api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='demo'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>active open<?php }?>" id="<?php echo $_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'];?>
+				<li class="nav-item level-0 dragable <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='edit_api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='demo'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>active open<?php }?>" id="<?php echo $_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'];?>
 " draggable="true">
-			<a href="javascript:;" class="nav-link nav-toggle">
-				<i class="icon-list"></i>
-				<span class="title"><?php echo $_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['name'];?>
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-list"></i>
+						<span class="title"><?php echo $_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['name'];?>
 </span>
-				<span class="arrow <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='edit_api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='demo'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>open<?php }?>"></span>
-			</a>
-			<ul class="sub-menu">
-				<li class="nav-item <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>active open<?php }?>">
-					<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'create_api','id'=>$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id']),$_smarty_tpl);?>
-" class="nav-link ">
-						<span class="title">添加文档</span>
+						<span class="arrow <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='edit_api'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])||($_GET['a']=='demo'&&$_smarty_tpl->tpl_vars['selectedGroup']->value['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>open<?php }?>"></span>
 					</a>
-				</li>
-				<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['api'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['api']);
+					<ul class="sub-menu">
+						<li class="nav-item <?php if (($_GET['a']=='create_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id'])) {?>active open<?php }?>">
+							<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'create_api','id'=>$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id']),$_smarty_tpl);?>
+" class="nav-link ">
+								<span class="title">添加文档</span>
+							</a>
+						</li>
+						<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['api'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['api']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['name'] = 'api';
 $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['loop'] = is_array($_loop=$_smarty_tpl->tpl_vars['api']->value) ? count($_loop) : max(0, (int) $_loop); unset($_loop);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['show'] = true;
@@ -158,19 +165,38 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['index_next'] = $_smar
 $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['api']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['api']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['api']['total']);
 ?>
-				<?php if ($_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['gid']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id']) {?>
-				<li class="nav-item <?php if (($_GET['a']=='api'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])||($_GET['a']=='edit_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])||($_GET['a']=='demo'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])) {?>active open<?php }?>">
-					<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'api','id'=>$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id']),$_smarty_tpl);?>
+						<?php if ($_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['gid']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['group']['index']]['id']) {?>
+						<li class="nav-item <?php if (($_GET['a']=='api'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])||($_GET['a']=='edit_api'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])||($_GET['a']=='demo'&&$_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id'])) {?>active open<?php }?>">
+							<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'api','id'=>$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id']),$_smarty_tpl);?>
 " class="nav-link ">
-						<span class="title"><?php echo $_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['name'];?>
+								<span class="title"><?php echo $_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['name'];?>
 </span>
-					</a>
+								<?php if ($_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['accesstime']<=$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['modifytime']&&$_GET['id']!=$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['api']['index']]['id']) {?>
+								<span class="badge badge-success">新</span>
+								<?php }?>
+							</a>
+						</li>
+						<?php }?>
+						<?php endfor; endif; ?>
+					</ul>
 				</li>
-				<?php }?>
-				<?php endfor; endif; ?>
+			<?php endfor; endif; ?>
 			</ul>
 		</li>
-		<?php endfor; endif; ?>
+		<li class="nav-item <?php if ($_GET['a']=='file') {?>open<?php }?>">
+			<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'file','id'=>$_smarty_tpl->tpl_vars['project']->value['id']),$_smarty_tpl);?>
+" class="nav-link nav-toggle">
+				<i class="icon-doc"></i>
+				<span class="title">共享文件</span>
+			</a>
+		</li>
+		<li class="nav-item <?php if ($_GET['a']=='module') {?>open<?php }?>">
+			<a href="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'module','id'=>$_smarty_tpl->tpl_vars['project']->value['id']),$_smarty_tpl);?>
+" class="nav-link nav-toggle">
+				<i class="icon-layers"></i>
+				<span class="title"> 数据模型 </span>
+			</a>
+		</li>
 		<?php }?>
 	</ul>
 	<!-- END SIDEBAR MENU -->

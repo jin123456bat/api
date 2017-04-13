@@ -250,6 +250,9 @@ class front extends view
 		$group = $this->model('group')->where('id=?',[$id])->find();
 		if(isset($group['pid']))
 		{	
+			$param_type = $this->getParamType();
+			$this->assign('param_type', $param_type);
+			
 			$project = $this->model('project')->where('id=?',[$group['pid']])->find();
 			$this->assign('project', $project);
 			
@@ -274,6 +277,28 @@ class front extends view
 		}
 	}
 	
+	private function getParamType()
+	{
+		$path = './application/helper/';
+		$paths = scandir($path);
+		$name = array();
+		array_walk($paths, function($file) use(&$name){
+			if ($file!='..' && $file!='.')
+			{
+				$classname = '\\application\\helper\\'.pathinfo($file,PATHINFO_FILENAME);
+				if (class_exists($classname,true))
+				{
+					$class = new $classname('test');
+					if($class instanceof \system\core\parameter)
+					{
+						$name[] = pathinfo($file,PATHINFO_FILENAME);
+					}
+				}
+			}
+		});
+		return $name;
+	}
+	
 	
 	function edit_api()
 	{
@@ -288,6 +313,9 @@ class front extends view
 		$api = $this->model('api')->where('id=? and isdelete=?',[$id,0])->find();
 		if(!empty($api))
 		{
+			$param_type = $this->getParamType();
+			$this->assign('param_type', $param_type);
+			
 			$this->assign('c_api', $api);
 			
 			$parameter = $this->model('parameter')->where('api_id=?',[$id])->select();

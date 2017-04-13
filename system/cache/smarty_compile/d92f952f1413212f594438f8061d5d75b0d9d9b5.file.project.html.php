@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-03 18:41:16
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 10:02:14
          compiled from "D:\wamp\www\api\application\template\front\project.html" */ ?>
 <?php /*%%SmartyHeaderCode:913456d55c79b27c94-76643037%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd92f952f1413212f594438f8061d5d75b0d9d9b5' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\project.html',
-      1 => 1457001675,
+      1 => 1459998094,
       2 => 'file',
     ),
   ),
@@ -151,6 +151,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 							<div class="col-sm-1">
 							<button type="button" class="col-md-12 btn green-haze btn-outline sbold uppercase addUser">添加成员</button>
 							</div>
+							<?php if (isset($_SESSION['api_id'])&&$_SESSION['api_id']==$_smarty_tpl->tpl_vars['project']->value['uid']) {?>
 							<div class="col-sm-1">
 								<button type="button" class="col-md-12 btn dark btn-outline sbold uppercase edit">编辑项目</button>
 							</div>
@@ -160,6 +161,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 							<div class="col-sm-1 pull-right">
 							<button type="button" class="col-md-12 btn red-mint btn-outline sbold uppercase remove">删除项目</button>
 							</div>
+							<?php }?>
 						</div>
 					</div>
 					
@@ -306,6 +308,23 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 			$(".js-data-example-ajax").select2({
 				placeholder: "输入用户名",
 				width: "on",
+				language: {
+				   noResults: function(){
+					   return "没有找到任何匹配项";
+				   },
+				   inputTooShort:function(){
+					   return '请输入用户名称';
+					},
+					searching:function(){
+						return '正在努力搜索...';
+					},
+					loadingMore:function(){
+						return '载入更多...';
+					},
+					inputTooLong:function(){
+						return '输入太多了...';
+					}
+				},
 				ajax: {
 					url: "<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'user','a'=>'search'),$_smarty_tpl);?>
 ",
@@ -365,9 +384,22 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 ',{pid:pid,uid:uid},function(response){
 					if(response.code==1)
 					{
-						var name = $('#select2-uid-ih-container').html();
+						var name = $('.select2-selection__rendered').html();
 						var tpl = '<span class="badge badge-warning" data-uid="'+uid+'"> '+name+' </span>';
 						$('.user_list').append(tpl);
+					}
+					else
+					{
+						App.alert({
+							container: $('#alert_container').val(), // alerts parent container 
+							place: 'append', // append or prepent in container 
+							type: 'danger', // alert's type 
+							message: response.result,
+							close: true,
+							focus: true, // auto scroll to the alert after shown
+							closeInSeconds: 3, // auto close after defined seconds 
+							icon:'fa fa-remove' // put icon class before the message
+						});
 					}
 				});
 						

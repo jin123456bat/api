@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-04 14:24:13
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 15:35:29
          compiled from "D:\wamp\www\api\application\template\front\edit_api.html" */ ?>
 <?php /*%%SmartyHeaderCode:1803556d6c51e5b85a3-70760513%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1e42d3d67eb5e122d9476a8f39ce101fbf0d7248' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\edit_api.html',
-      1 => 1457072598,
+      1 => 1492068889,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'c_api' => 0,
     'VIEW_ROOT' => 0,
+    'param_type' => 0,
+    'type' => 0,
     'parameter' => 0,
     'x_csrf_token' => 0,
   ),
@@ -173,6 +175,30 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-md-1 control-label">是否允许调试</label>
+										<div class="col-md-9">
+											<input type="checkbox" class="form-control input-inline input-medium" name="debug" <?php if ($_smarty_tpl->tpl_vars['c_api']->value['debug']==1) {?>checked="checked"<?php }?>>
+											<span class="help-inline"> 开启可以使用内置调试器调试. </span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-1 control-label">参数转化</label>
+										<div class="col-md-9">
+											<select name="param_type" class="form-control input-inline input-medium">
+												<?php  $_smarty_tpl->tpl_vars['type'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['type']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['param_type']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['type']->key => $_smarty_tpl->tpl_vars['type']->value) {
+$_smarty_tpl->tpl_vars['type']->_loop = true;
+?>
+												<option <?php if ($_smarty_tpl->tpl_vars['type']->value==$_smarty_tpl->tpl_vars['c_api']->value['param_type']) {?>selected="selected"<?php }?> value="<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+</option>
+												<?php } ?>
+											</select>
+											<span class="help-inline"> 继承parameter类可以实现请求参数转化. </span>
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-md-1 control-label">请求参数</label>
 										<div class="col-md-9">
 											<table class="table table-bordered table-striped table-condensed flip-content" id="parameter">
@@ -218,7 +244,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 ]" value="post" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['method']=='post') {?>checked="checked"<?php }?>> POST </label>
 													<label class="radio-inline" style="padding:0px;">
 														<input type="radio" class="method" name="method[<?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['name'];?>
-]" value="get" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['method']=='post') {?>checked="checked"<?php }?>> GET </label>
+]" value="get" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['method']=='get') {?>checked="checked"<?php }?>> GET </label>
 												</div>
 											</td><td><input type="checkbox" name="need" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['need']==1) {?>checked="checked"<?php }?>></td><td>
 											
@@ -234,7 +260,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 											</td>
 											<td><input type="text" name="dvalue" class="form-control" value="<?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['need']!=1) {?><?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['dvalue'];?>
 <?php }?>" <?php if ($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['need']==1) {?>disabled="disabled"<?php }?>></td>
-											<td><input type="text" name="demo" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['demo'];?>
+											<td><input type="text" name="demo" class="form-control" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['demo']);?>
 " ></td>
 											<td><textarea name="description" class="form-control" rows="1"><?php echo $_smarty_tpl->tpl_vars['parameter']->value[$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['description'];?>
 </textarea></td></tr>
@@ -408,6 +434,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			var response = $(this).find('textarea[name=response]').val();
 			var description = $(this).find('input[name=description]').val();
 			var note = $(this).find('textarea[name=note]').val();
+			var debug = $(this).find('input[name=debug]:checked').length;
+			var param_type = $(this).find('select[name=param_type]').val();
 			
 			var parameter = [];
 			$.each($('#parameter').find('input[name=name]'),function(index,value){
@@ -416,7 +444,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 					var tmp = {};
 					tmp['name'] = $(value).parents('tr').find('input[name=name]').val();
 					tmp['type'] = $(value).parents('tr').find('select[name=type]').val();
-					tmp['method'] = $(value).parents('tr').find('.method:checked').val();
+					tmp['method'] = $(value).parents('tr').find('.method[checked]').val();
 					tmp['need'] = $(value).parents('tr').find('input[name=need]:checked').length;
 					tmp['length_min'] = $(value).parents('tr').find('input[name=length_min]').val();
 					tmp['length_max'] = $(value).parents('tr').find('input[name=length_max]').val();
@@ -429,7 +457,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'edit'),$_smarty_tpl);?>
 ',{id:'<?php echo $_GET['id'];?>
-',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter},function(response){
+',name:name,url:url,method:method,version:version,response:response,description:description,note:note,parameter:parameter,debug:debug,param_type:param_type},function(response){
 				if(response.code==1)
 				{
 					window.location = '<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'api','id'=>$_GET['id']),$_smarty_tpl);?>

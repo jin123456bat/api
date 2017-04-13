@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-03 15:07:53
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 18:28:51
          compiled from "D:\wamp\www\api\application\template\front\create_project.html" */ ?>
 <?php /*%%SmartyHeaderCode:2923956d56781a46d50-22388107%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '925122ce6844e4617b172bc811b56d3edc0d24c5' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\create_project.html',
-      1 => 1456988872,
+      1 => 1492079328,
       2 => 'file',
     ),
   ),
@@ -306,8 +306,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 ',{name:name,description:description,logo:logo,host:host,introduction:introduction},function(response){
 						if(response.code==1)
 						{
-							window.location = '<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'project'),$_smarty_tpl);?>
-';
+							window.location = './index.php?a=project&id='+response.body;
 						}
 					});
 				}
