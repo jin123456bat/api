@@ -84,8 +84,20 @@
                     <div class="portlet light bordered">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="icon-settings font-dark"></i>
-								<span class="caption-subject font-dark sbold uppercase">{%$selectedGroup.name%} / {%$c_api.name%}</span>
+								<span class="caption-subject font-dark sbold uppercase">
+									<!-- {%$selectedGroup.name%} / {%$c_api.name%} -->
+									<select class="form-control input-sm" id="api" >
+										{%section name=g loop=$group%}
+										<optgroup label="{%$group[g].name%}">
+											{%section name=a loop=$api%}
+											{%if $api[a].gid == $group[g].id%}
+											<option value="{%$api[a].id%}" {%if $smarty.get.id==$api[a].id%}selected="selected"{%/if%}>{%$api[a].name%}</option>
+											{%/if%}
+											{%/section%}
+										</optgroup>
+										{%/section%}
+									</select>
+								</span>
 							</div>
 						</div>
 						<div class="portlet-body form">
@@ -372,6 +384,10 @@
 				}
 			});
 			return false;
+		});
+		
+		$('#api').on('change',function(){
+			window.location = './index.php?a=demo&id='+$(this).val();
 		});
 		
 		</script>

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 10:14:09
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 14:29:56
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1492136047,
+      1 => 1492151394,
       2 => 'file',
     ),
   ),
@@ -22,6 +22,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'VIEW_ROOT' => 0,
     'c_api' => 0,
     'selectedGroup' => 0,
+    'group' => 0,
+    'api' => 0,
     'parameter' => 0,
     'x_csrf_token' => 0,
   ),
@@ -128,10 +130,71 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <div class="portlet light bordered">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="icon-settings font-dark"></i>
-								<span class="caption-subject font-dark sbold uppercase"><?php echo $_smarty_tpl->tpl_vars['selectedGroup']->value['name'];?>
+								<span class="caption-subject font-dark sbold uppercase">
+									<!-- <?php echo $_smarty_tpl->tpl_vars['selectedGroup']->value['name'];?>
  / <?php echo $_smarty_tpl->tpl_vars['c_api']->value['name'];?>
-</span>
+ -->
+									<select class="form-control input-sm" id="api" >
+										<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['g'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['g']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['name'] = 'g';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['loop'] = is_array($_loop=$_smarty_tpl->tpl_vars['group']->value) ? count($_loop) : max(0, (int) $_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['g']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['g']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['g']['total']);
+?>
+										<optgroup label="<?php echo $_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['g']['index']]['name'];?>
+">
+											<?php if (isset($_smarty_tpl->tpl_vars['smarty']->value['section']['a'])) unset($_smarty_tpl->tpl_vars['smarty']->value['section']['a']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['name'] = 'a';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['loop'] = is_array($_loop=$_smarty_tpl->tpl_vars['api']->value) ? count($_loop) : max(0, (int) $_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['a']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['a']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['a']['total']);
+?>
+											<?php if ($_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['a']['index']]['gid']==$_smarty_tpl->tpl_vars['group']->value[$_smarty_tpl->getVariable('smarty')->value['section']['g']['index']]['id']) {?>
+											<option value="<?php echo $_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['a']['index']]['id'];?>
+" <?php if ($_GET['id']==$_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['a']['index']]['id']) {?>selected="selected"<?php }?>><?php echo $_smarty_tpl->tpl_vars['api']->value[$_smarty_tpl->getVariable('smarty')->value['section']['a']['index']]['name'];?>
+</option>
+											<?php }?>
+											<?php endfor; endif; ?>
+										</optgroup>
+										<?php endfor; endif; ?>
+									</select>
+								</span>
 							</div>
 						</div>
 						<div class="portlet-body form">
@@ -463,6 +526,10 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 				}
 			});
 			return false;
+		});
+		
+		$('#api').on('change',function(){
+			window.location = './index.php?a=demo&id='+$(this).val();
 		});
 		
 		</script>
