@@ -197,9 +197,19 @@ class api extends ajax
 	 */
 	private function getPostParamter($name = NULL)
 	{
+		$result = explode('&', urldecode(file_get_contents('php://input')));
+		$post = array();
+		foreach ($result as $r)
+		{
+			list($key,$value) = explode('=', $r);
+			if (preg_match('/post\[(.+)\]/', $key,$match))
+			{
+				$post[$match[1]] = $value;
+			}
+		}
 		if (empty($name))
-			return isset($_POST['post'])?$_POST['post']:[];
-		return isset($_POST['post'][$name])?$_POST['post'][$name]:NULL;
+			return $post;
+		return isset($post[$name])?$post[$name]:NULL;
 	}
 	
 	/**
@@ -209,9 +219,19 @@ class api extends ajax
 	 */
 	private function getGetParameter($name = NULL)
 	{
+		$result = explode('&', urldecode(file_get_contents('php://input')));
+		$get = array();
+		foreach ($result as $r)
+		{
+			list($key,$value) = explode('=', $r);
+			if (preg_match('/get\[(.+)\]/', $key,$match))
+			{
+				$get[$match[1]] = $value;
+			}
+		}
 		if (empty($name))
-			return isset($_POST['get'])?$_POST['get']:[];
-		return isset($_POST['get'][$name])?$_POST['get'][$name]:NULL;
+			return $get;
+		return isset($get[$name])?$get[$name]:NULL;
 	}
 	
 	/**
@@ -263,7 +283,6 @@ class api extends ajax
 		
 		$userHelper = new user();
 		$uid = $userHelper->getUserId();
-		
 		$curl = curl_init($url);
 		curl_setopt ( $curl, CURLOPT_POST, 1 );
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );

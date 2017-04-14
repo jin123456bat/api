@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 14:29:56
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 17:30:18
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1492151394,
+      1 => 1492162217,
       2 => 'file',
     ),
   ),
@@ -485,21 +485,63 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 				api_refresh_cookie:$('input[name=api_refresh_cookie]:checked').length,
 			};
 			
+			obj.get = {};
+			obj.post = {};
 			obj['get'] = {};
 			obj['post'] = {};
 			
 			$.each(key_input,function(index,value){
 				if($.trim($(value).val()).length != 0)
 				{
-					switch($(method_input[index]).val())
+					var request_value = $(value_input[index]).val();
+					var request_method = $(method_input[index]).val()
+					switch(request_method)
 					{
 						case 'post':
-							obj['post'][$(value).val()] = $(value_input[index]).val();
+							obj['post'][$(value).val()] = request_value;
 							break;
 						case 'get':
-							obj['get'][$(value).val()] = $(value_input[index]).val();
+							obj['get'][$(value).val()] = request_value;
 							break;
 					}
+					/* var request_value = $(value_input[index]).val();
+					var request_method = $(method_input[index]).val();
+					
+					var p = new RegExp('\\[.+\\]','ig');
+					var a = p.exec($(value).val());
+					if(a)
+					{
+						var index = $(value).val().replace(p,'');
+						var c = /[\d\w]+/.exec(a[0])[0];
+						if(!obj['post'][index])
+						{
+							obj['post'][index] = {};
+						}
+						switch(request_method)
+						{
+							case 'post':
+								obj['post'][index][c] = request_value;
+								break;
+							case 'get':
+								obj['get'][index][c] = request_value;
+								break;
+						}
+					}
+					else
+					{
+						var index = $(value).val();
+						value = request_value;
+						switch(request_method)
+						{
+							case 'post':
+								obj['post'][index] = value;
+								break;
+							case 'get':
+								obj['get'][index] = value;
+								break;
+						}
+					} */
+					
 				}
 			});
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'demo'),$_smarty_tpl);?>

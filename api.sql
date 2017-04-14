@@ -38,7 +38,7 @@ CREATE TABLE `api` (
   `debug` tinyint(1) NOT NULL,
   `param_type` varchar(32) NOT NULL DEFAULT 'common',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,4 +323,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-14 14:30:30
+-- Dump completed on 2017-04-14 17:47:12

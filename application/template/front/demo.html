@@ -344,19 +344,23 @@
 				api_refresh_cookie:$('input[name=api_refresh_cookie]:checked').length,
 			};
 			
+			obj.get = {};
+			obj.post = {};
 			obj['get'] = {};
 			obj['post'] = {};
 			
 			$.each(key_input,function(index,value){
 				if($.trim($(value).val()).length != 0)
 				{
-					switch($(method_input[index]).val())
+					var request_value = $(value_input[index]).val();
+					var request_method = $(method_input[index]).val()
+					switch(request_method)
 					{
 						case 'post':
-							obj['post'][$(value).val()] = $(value_input[index]).val();
+							obj['post'][$(value).val()] = request_value;
 							break;
 						case 'get':
-							obj['get'][$(value).val()] = $(value_input[index]).val();
+							obj['get'][$(value).val()] = request_value;
 							break;
 					}
 				}
