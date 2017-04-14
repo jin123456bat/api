@@ -9,7 +9,7 @@ class project extends ajax
 	{
 		$name = $this->post('name');
 		$description = $this->post('description','');
-		$logo = $this->post('logo',NULL,'intval');
+		$logo = $this->post('logo',0,'intval');
 		
 		$host = $this->post('host','');
 		
@@ -33,7 +33,7 @@ class project extends ajax
 		
 		$name = $this->post('name');
 		$description = $this->post('description','');
-		$logo = $this->post('logo',NULL);
+		$logo = $this->post('logo',0,'intval');
 		
 		$host = $this->post('host','');
 		

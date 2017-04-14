@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 11:53:48
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 10:14:09
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1459832406,
+      1 => 1492136047,
       2 => 'file',
     ),
   ),
@@ -72,7 +72,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
-
+	
+	<style>
+	.display-none{
+		display:none !important;
+	}
+	</style>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <!-- BEGIN HEADER -->
         <?php echo $_smarty_tpl->getSubTemplate ('front/public/header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
@@ -197,8 +202,11 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 												<li class="">
 													<a href="#header" data-toggle="tab" aria-expanded="false"> 响应头 </a>
 												</li>
-												<li class="">
-													<a><span class="badge badge-default display-none" id="last_msec"> 5MS </span></a>
+												<li class="display-none">
+													<a><span class="badge badge-default" id="last_msec"> 5MS </span></a>
+												</li>
+												<li class="display-none">
+													<a id="setExample">设为响应示例</a>
 												</li>
 											</ul>
 											<div class="tab-content">
@@ -385,7 +393,21 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 				}  
 			}  
 			return s;  
-		}  
+		}
+		
+		var global_last_request_response = {};
+		
+		$('#setExample').on('click',function(){
+			if($(this).hasClass('display-none'))
+			{
+				return false;
+			}
+			$.post('./index.php?m=ajax&c=api&a=setResponse',{id:'<?php echo $_GET['id'];?>
+',response:global_last_request_response.content},function(response){
+				$('#setExample').parents('li').addClass('display-none');
+			});
+			return false;
+		});
 		
 		$('#demo').on('submit',function(){
 			var key_input = $('table tbody .key');
@@ -419,10 +441,9 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			});
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'demo'),$_smarty_tpl);?>
 ',obj,function(response){
-				
-				
 				try{
-					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
+					global_last_request_response = response;
+					$('#last_msec').html(response.last_msec+' ms').parents('li').removeClass('display-none');
 					$('.header').html(response.header);
 					if(response.content_type == 'image')
 					{
@@ -430,6 +451,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 					}
 					else
 					{
+						$('#setExample').parents('li').removeClass('display-none');
 						$('.result').html(APP.format(response.content));
 					}
 				}

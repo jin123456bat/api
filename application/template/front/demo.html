@@ -32,7 +32,12 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
-
+	
+	<style>
+	.display-none{
+		display:none !important;
+	}
+	</style>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <!-- BEGIN HEADER -->
         {%include file='front/public/header.html'%}
@@ -125,8 +130,11 @@
 												<li class="">
 													<a href="#header" data-toggle="tab" aria-expanded="false"> 响应头 </a>
 												</li>
-												<li class="">
-													<a><span class="badge badge-default display-none" id="last_msec"> 5MS </span></a>
+												<li class="display-none">
+													<a><span class="badge badge-default" id="last_msec"> 5MS </span></a>
+												</li>
+												<li class="display-none">
+													<a id="setExample">设为响应示例</a>
 												</li>
 											</ul>
 											<div class="tab-content">
@@ -296,7 +304,20 @@
 				}  
 			}  
 			return s;  
-		}  
+		}
+		
+		var global_last_request_response = {};
+		
+		$('#setExample').on('click',function(){
+			if($(this).hasClass('display-none'))
+			{
+				return false;
+			}
+			$.post('./index.php?m=ajax&c=api&a=setResponse',{id:'{%$smarty.get.id%}',response:global_last_request_response.content},function(response){
+				$('#setExample').parents('li').addClass('display-none');
+			});
+			return false;
+		});
 		
 		$('#demo').on('submit',function(){
 			var key_input = $('table tbody .key');
@@ -329,10 +350,9 @@
 				}
 			});
 			$.post('{%url m=ajax c=api a=demo%}',obj,function(response){
-				
-				
 				try{
-					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
+					global_last_request_response = response;
+					$('#last_msec').html(response.last_msec+' ms').parents('li').removeClass('display-none');
 					$('.header').html(response.header);
 					if(response.content_type == 'image')
 					{
@@ -340,6 +360,7 @@
 					}
 					else
 					{
+						$('#setExample').parents('li').removeClass('display-none');
 						$('.result').html(APP.format(response.content));
 					}
 				}

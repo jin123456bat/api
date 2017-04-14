@@ -52,6 +52,23 @@ class api extends ajax
 		return new json(json::NOT_LOGIN);
 	}
 	
+	function setResponse()
+	{
+		$id = $this->post('id');
+		$response = $this->post('response','');
+		if (!empty($id))
+		{
+			if($this->model('api')->where('id=?',[$id])->limit(1)->update('response',$response))
+			{
+				return new json(json::OK);
+			}
+			else
+			{
+				return new json(json::PARAMETER_ERROR,'更新失败');
+			}
+		}
+		return new json(json::PARAMETER_ERROR);
+	}
 	
 	function edit()
 	{
@@ -92,8 +109,8 @@ class api extends ajax
 						'type' => $parameter['type'],
 						'method' => $parameter['method'],
 						'need' => $parameter['need'],
-						'length_min' => $parameter['length_min'],
-						'length_max' => $parameter['length_max'],
+						'length_min' => intval($parameter['length_min']),
+						'length_max' => intval($parameter['length_max']),
 						'dvalue' => $parameter['dvalue'],
 						'demo' => $parameter['demo'],
 						'description' => $parameter['description'],
@@ -149,8 +166,8 @@ class api extends ajax
 						'type' => $parameter['type'],
 						'method' => isset($parameter['method'])?$parameter['method']:'post',
 						'need' => $parameter['need'],
-						'length_min' => $parameter['length_min'],
-						'length_max' => $parameter['length_max'],
+						'length_min' => intval($parameter['length_min']),
+						'length_max' => intval($parameter['length_max']),
 						'dvalue' => $parameter['dvalue'],
 						'demo' => $parameter['demo'],
 						'description' => $parameter['description'],
@@ -252,6 +269,8 @@ class api extends ajax
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $curl, CURLOPT_POSTFIELDS, $class->getPostParam() );
 		curl_setopt ( $curl, CURLOPT_TIMEOUT, 5);
+		curl_setopt ( $curl, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt ( $curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt ( $curl, CURLOPT_HEADER, true);
 		
 		if ($userHelper->isLogin())

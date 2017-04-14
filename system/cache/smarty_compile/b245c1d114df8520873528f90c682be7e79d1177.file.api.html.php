@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 11:57:40
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 11:10:40
          compiled from "D:\wamp\www\api\application\template\front\api.html" */ ?>
 <?php /*%%SmartyHeaderCode:31856d6aa619161d3-97428824%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b245c1d114df8520873528f90c682be7e79d1177' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\api.html',
-      1 => 1492055858,
+      1 => 1492139438,
       2 => 'file',
     ),
   ),
@@ -369,7 +369,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['module']['last']       = ($_
 												<?php }?>
 											</div>
 											<div class="portlet-body">
-												<p>用户登陆接口</p>
+												<p><?php echo $_smarty_tpl->tpl_vars['module']->value[$_smarty_tpl->getVariable('smarty')->value['section']['module']['index']]['description'];?>
+</p>
 												<table class="table parameter_table">
 													<thead>
 														<tr>

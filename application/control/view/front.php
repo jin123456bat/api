@@ -397,14 +397,17 @@ class front extends view
 			
 			$this->assign('c_user_id', $userHelper->getUserId());
 			
-			$module = $this->model('api_module')->table('module','left join','module.id=api_module.module_id')->where('api_module.api_id=? and module.isdelete=?',[$id,0])->select('module.*');
+			$module = $this->model('api_module')
+			->table('module','left join','module.id=api_module.module_id')
+			->where('api_module.api_id=? and module.isdelete=?',[$id,0])
+			->select('module.*');
 			foreach ($module as &$m)
 			{
 				$m['parameter'] = $this->model('module_parameter')->where('mid=?',[$m['id']])->select();
 			}
 			$this->assign('module', $module);
 			
-			$moduleList = $this->model('module')->where('isdelete=?',[0])->select();
+			$moduleList = $this->model('module')->where('pid=?',[$project['id']])->where('isdelete=?',[0])->select();
 			$this->assign('moduleList', $moduleList);
 			
 			return $this;
