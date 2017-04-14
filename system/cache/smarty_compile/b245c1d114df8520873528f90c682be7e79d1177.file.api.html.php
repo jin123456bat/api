@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 11:10:40
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 12:19:53
          compiled from "D:\wamp\www\api\application\template\front\api.html" */ ?>
 <?php /*%%SmartyHeaderCode:31856d6aa619161d3-97428824%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b245c1d114df8520873528f90c682be7e79d1177' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\api.html',
-      1 => 1492139438,
+      1 => 1492143592,
       2 => 'file',
     ),
   ),
@@ -129,7 +129,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     </div>
                     <!-- END PAGE BAR -->
 					
-					<div id="responsive" class="modal fade" data-width="760" tabindex="-1" data-focus-on="input:first">
+					<div id="responsive" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" data-width="760" tabindex="-1" data-focus-on="input:first">
 						<form class="form-horizontal" id="module_form" role="form">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
