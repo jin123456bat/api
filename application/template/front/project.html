@@ -36,7 +36,11 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
-
+	<style>
+		.badge-warning{
+			cursor: pointer;
+		}
+	</style>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <!-- BEGIN HEADER -->
         {%include file='front/public/header.html'%}
@@ -196,7 +200,8 @@
 					"<div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-star'></span> " + 'repo.stargazers_count' + " Stars</div>" +
 					"<div class='select2-result-repository__watchers'><span class='glyphicon glyphicon-eye-open'></span> " + 'repo.watchers_count' + " Watchers</div>" +
 					"</div>" +
-				  */  "</div></div>";
+				  */
+				markup += "</div></div>";
 	
 				return markup;
 			}
@@ -295,7 +300,17 @@
 						});
 					}
 				});
-						
+			});
+			
+			$('.user_list').on('click','.badge-warning',function(){
+				var uid = $(this).data('uid');
+				$.post('./index.php?m=ajax&c=project&a=removeUser',{pid:'{%$smarty.get.id%}',uid:uid},function(response){
+					if(response.code!=1)
+					{
+						alert(response.result);
+					}
+				});
+				$(this).remove();
 			});
 			
 			$('.group').on('click',function(){

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 10:56:12
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 11:50:41
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1492484171,
+      1 => 1492485480,
       2 => 'file',
     ),
   ),
@@ -25,6 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'group' => 0,
     'api' => 0,
     'parameter' => 0,
+    'project' => 0,
     'x_csrf_token' => 0,
   ),
   'has_nocache_code' => false,
@@ -268,9 +269,11 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 												<li class="display-none">
 													<a><span class="badge badge-default" id="last_msec"> 5MS </span></a>
 												</li>
+												<?php if (isset($_SESSION['api_id'])&&$_SESSION['api_id']==$_smarty_tpl->tpl_vars['project']->value['uid']) {?>
 												<li class="display-none">
 													<a id="setExample">设为响应示例</a>
 												</li>
+												<?php }?>
 											</ul>
 											<div class="tab-content">
 												<pre id="body" class="result tab-pane fade active in" style="min-height:100px;"></pre>

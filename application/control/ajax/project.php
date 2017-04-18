@@ -98,4 +98,20 @@ class project extends ajax
 		}
 		return new json(json::PARAMETER_ERROR,'不能添加自己为成员');
 	}
+	
+	function removeUser()
+	{
+		$pid = $this->post('pid',0,'intval');
+		$uid = $this->post('uid',0,'intval');
+		if (empty($pid) || empty($uid))
+			return new json(json::PARAMETER_ERROR);
+		if($this->model('project_user')->where('project_id=? and user_id=?',[$pid,$uid])->delete())
+		{
+			return new json(json::OK);
+		}
+		else
+		{
+			return new json(json::PARAMETER_ERROR,'删除失败');
+		}
+	}
 }

@@ -28,7 +28,7 @@ CREATE TABLE `api` (
   `name` varchar(32) NOT NULL,
   `url` varchar(256) NOT NULL,
   `method` enum('get','post','put','delete') NOT NULL,
-  `version` int(11) NOT NULL,
+  `version` varchar(32) NOT NULL,
   `response` longtext NOT NULL,
   `description` text NOT NULL,
   `note` text NOT NULL,
@@ -166,7 +166,7 @@ CREATE TABLE `module` (
   `isdelete` tinyint(4) NOT NULL COMMENT '是否删除',
   `deletetime` int(11) NOT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COMMENT='数据模型';
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COMMENT='数据模型';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +185,7 @@ CREATE TABLE `module_parameter` (
   PRIMARY KEY (`id`),
   KEY `mid` (`mid`),
   CONSTRAINT `module_parameter_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=518 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=539 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -311,7 +311,7 @@ CREATE TABLE `user` (
   `api_cookie` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -323,4 +323,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-18 10:56:48
+-- Dump completed on 2017-04-18 12:08:58

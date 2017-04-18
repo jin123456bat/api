@@ -145,9 +145,11 @@
 												<li class="display-none">
 													<a><span class="badge badge-default" id="last_msec"> 5MS </span></a>
 												</li>
+												{%if isset($smarty.session.api_id) && $smarty.session.api_id==$project.uid%}
 												<li class="display-none">
 													<a id="setExample">设为响应示例</a>
 												</li>
+												{%/if%}
 											</ul>
 											<div class="tab-content">
 												<pre id="body" class="result tab-pane fade active in" style="min-height:100px;"></pre>

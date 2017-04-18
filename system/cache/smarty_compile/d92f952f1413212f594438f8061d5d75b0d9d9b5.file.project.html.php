@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-13 10:02:14
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 12:08:47
          compiled from "D:\wamp\www\api\application\template\front\project.html" */ ?>
 <?php /*%%SmartyHeaderCode:913456d55c79b27c94-76643037%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd92f952f1413212f594438f8061d5d75b0d9d9b5' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\project.html',
-      1 => 1459998094,
+      1 => 1492488526,
       2 => 'file',
     ),
   ),
@@ -81,7 +81,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
-
+	<style>
+		.badge-warning{
+			cursor: pointer;
+		}
+	</style>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <!-- BEGIN HEADER -->
         <?php echo $_smarty_tpl->getSubTemplate ('front/public/header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
@@ -296,7 +300,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 					"<div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-star'></span> " + 'repo.stargazers_count' + " Stars</div>" +
 					"<div class='select2-result-repository__watchers'><span class='glyphicon glyphicon-eye-open'></span> " + 'repo.watchers_count' + " Watchers</div>" +
 					"</div>" +
-				  */  "</div></div>";
+				  */
+				markup += "</div></div>";
 	
 				return markup;
 			}
@@ -402,7 +407,18 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 						});
 					}
 				});
-						
+			});
+			
+			$('.user_list').on('click','.badge-warning',function(){
+				var uid = $(this).data('uid');
+				$.post('./index.php?m=ajax&c=project&a=removeUser',{pid:'<?php echo $_GET['id'];?>
+',uid:uid},function(response){
+					if(response.code!=1)
+					{
+						alert(response.result);
+					}
+				});
+				$(this).remove();
 			});
 			
 			$('.group').on('click',function(){
