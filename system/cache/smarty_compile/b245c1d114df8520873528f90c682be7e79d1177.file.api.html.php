@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-14 12:19:53
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 14:35:29
          compiled from "D:\wamp\www\api\application\template\front\api.html" */ ?>
 <?php /*%%SmartyHeaderCode:31856d6aa619161d3-97428824%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b245c1d114df8520873528f90c682be7e79d1177' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\api.html',
-      1 => 1492143592,
+      1 => 1492497328,
       2 => 'file',
     ),
   ),
@@ -83,6 +83,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <link href="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
 /assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
+        <link href="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
+/front/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
@@ -407,7 +409,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['index_next'] = 
 $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['total']);
 ?>
-														<tr>
+														<tr id="<?php echo $_smarty_tpl->tpl_vars['module']->value[$_smarty_tpl->getVariable('smarty')->value['section']['module']['index']]['parameter'][$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['id'];?>
+">
 															<td><?php echo $_smarty_tpl->tpl_vars['module']->value[$_smarty_tpl->getVariable('smarty')->value['section']['module']['index']]['parameter'][$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['name'];?>
 </td>
 															<td><?php echo $_smarty_tpl->tpl_vars['module']->value[$_smarty_tpl->getVariable('smarty')->value['section']['module']['index']]['parameter'][$_smarty_tpl->getVariable('smarty')->value['section']['parameter']['index']]['value'];?>
@@ -571,6 +574,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
         <script src="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
 /assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
+/front/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
 /assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="<?php echo $_smarty_tpl->tpl_vars['VIEW_ROOT']->value;?>
 /assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
@@ -618,6 +623,21 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 		
 		window.um = UM.getEditor('container');
 		
+		$('.parameter_table tbody').sortable({
+			items:'tr',
+			update:function(event,ui){
+				var id = $(this).sortable("toArray");
+				var $this = $(this);
+	            $.ajax({
+	                url: './index.php?m=ajax&c=module&a=sort',
+	                type: 'POST',
+	                data: {id:id},
+	                success: function(json) {
+	                }
+	            });
+			}
+		});
+		
 		$('.moduleList').on('click','.create',function(){
 			var parameter = {
 				id:$(this).data('id'),
@@ -630,7 +650,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 ',parameter,function(response){
 				if(response.code==1)
 				{
-					var tpl = '<tr><td>'+response.body.name+'</td><td>'+response.body.value+'</td><td>'+response.body.description+'</td><td><button data-id="'+response.body.id+'" class="btn red default btn-circle btn-outline btn-tansparent btn-xs remove">删除</button></td></tr>';
+					var tpl = '<tr id="'+response.body.id+'"><td>'+response.body.name+'</td><td>'+response.body.value+'</td><td>'+response.body.description+'</td><td><button data-id="'+response.body.id+'" class="btn red default btn-circle btn-outline btn-tansparent btn-xs remove">删除</button></td></tr>';
 					$(tpl).insertBefore(ths.parents('tr'));
 					ths.parents('tr').find('input').val('');
 				}
@@ -732,7 +752,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 								{
 									for(var i=0;i<response.body.parameter.length;i++)
 									{
-										tpl +=	'			<tr>'
+										tpl +=	'			<tr id="'+response.body.parameter[i].id+'">'
 										+	'				<td>'+response.body.parameter[i].name+'</td>'
 										+	'				<td>'+response.body.parameter[i].value+'</td>'
 										+	'				<td>'+response.body.parameter[i].description+'</td>'
@@ -750,8 +770,22 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 								+	'	</table>'
 								+	'</div>'
 								+'</div>';
-								
-						$(tpl).insertBefore($('.createModuleBtn'));
+						tpl = $(tpl);
+						tpl.find('table tbody').sortable({
+							items:'tr',
+							update:function(event,ui){
+								var id = $(this).sortable("toArray");
+								var $this = $(this);
+					            $.ajax({
+					                url: './index.php?m=ajax&c=module&a=sort',
+					                type: 'POST',
+					                data: {id:id},
+					                success: function(json) {
+					                }
+					            });
+							}
+						});
+						tpl.insertBefore($('.createModuleBtn'));
 						$('#responsive').modal('hide');
 				}
 				else
@@ -808,7 +842,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 								+	'		<tbody>';
 								for(var i=0;i<response.body.parameter.length;i++)
 								{
-									tpl +=	'			<tr>'
+									tpl +=	'			<tr id="'+response.body.parameter[i].id+'">'
 									+	'				<td>'+response.body.parameter[i].name+'</td>'
 									+	'				<td>'+response.body.parameter[i].value+'</td>'
 									+	'				<td>'+response.body.parameter[i].description+'</td>'
@@ -826,7 +860,22 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['question']['last']       = (
 								+	'</div>'
 								+'</div>';
 								
-						$(tpl).insertBefore($('.createModuleBtn'));
+						tpl = $(tpl);
+						tpl.find('table tbody').sortable({
+							items:'tr',
+							update:function(event,ui){
+								var id = $(this).sortable("toArray");
+								var $this = $(this);
+					            $.ajax({
+					                url: './index.php?m=ajax&c=module&a=sort',
+					                type: 'POST',
+					                data: {id:id},
+					                success: function(json) {
+					                }
+					            });
+							}
+						});
+						tpl.insertBefore($('.createModuleBtn'));
 					}
 					else
 					{

@@ -10,7 +10,7 @@ class module extends ajax
 		$module = $this->model('module')->where('id=? and isdelete=?',[$id,0])->find();
 		if (!empty($module))
 		{
-			$module['parameter'] = $this->model('module_parameter')->where('mid=?',[$module['id']])->select();
+			$module['parameter'] = $this->model('module_parameter')->where('mid=?',[$module['id']])->orderby('sort','asc')->select();
 			if(empty($this->model('api_module')->where('api_id=? and module_id=?',[$this->post('api_id'),$id])->find()))
 			{
 				$this->model('api_module')->insert([
@@ -24,6 +24,16 @@ class module extends ajax
 		}
 		return new json(json::PARAMETER_ERROR);
 		
+	}
+	
+	function sort()
+	{
+		$ids = $this->post('id',array());
+		foreach ($ids as $index => $id)
+		{
+			$this->model('module_parameter')->where('id=?',[$id])->limit(1)->update('sort',$index);
+		}
+		return new json(json::OK);
 	}
 	
 	function create()
@@ -65,15 +75,17 @@ class module extends ajax
 			if(is_array($parameter) && !empty($parameter))
 			{
 				$moduleData['parameter'] = [];
-				foreach($parameter as $p)
+				foreach($parameter as $index=>$p)
 				{
 					if(!$this->model('module_parameter')->insert([
 						'mid' => $mid,
 						'name' => $p['name'],
 						'value' => $p['value'],
 						'description' => $p['description'],
+						'sort' => $index+1,
 					]))
 					{
+						$this->model('module')->rollback();
 						return new json(json::PARAMETER_ERROR,'添加失败，请重试');
 					}
 					else
@@ -119,6 +131,7 @@ class module extends ajax
 			'name' => $this->post('name',''),
 			'value' => $this->post('value',''),
 			'description' => $this->post('description',''),
+			'sort' => intval(count($this->model('module_parameter')->where('mid=?',[$this->post('id')])->select()))+1
 		];
 		if($this->model('module_parameter')->insert($parameterModel))
 		{

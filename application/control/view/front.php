@@ -403,7 +403,7 @@ class front extends view
 			->select('module.*');
 			foreach ($module as &$m)
 			{
-				$m['parameter'] = $this->model('module_parameter')->where('mid=?',[$m['id']])->select();
+				$m['parameter'] = $this->model('module_parameter')->where('mid=?',[$m['id']])->orderby('sort','asc')->select();
 			}
 			$this->assign('module', $module);
 			
