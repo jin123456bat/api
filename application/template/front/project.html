@@ -302,6 +302,7 @@
 				});
 			});
 			
+			{%if isset($smarty.session.api_id) && $smarty.session.api_id==$project.uid%}
 			$('.user_list').on('click','.badge-warning',function(){
 				var uid = $(this).data('uid');
 				$.post('./index.php?m=ajax&c=project&a=removeUser',{pid:'{%$smarty.get.id%}',uid:uid},function(response){
@@ -312,6 +313,7 @@
 				});
 				$(this).remove();
 			});
+			{%/if%}
 			
 			$('.group').on('click',function(){
 				window.location = '{%url a=group id=$smarty.get.id%}';
