@@ -38,9 +38,8 @@ class http
 	function url($m = NULL,$c = NULL, $a = NULL, $array = array(), $query = NULL)
 	{
 		$protocal = (isset($_SERVER['https']) ? 'https://' : 'http://');
-		$port = isset($_SERVER['https']) ? (($this->port() == 443) ? '' : ':' . $this->port()) : (($this->port() == 80) ? '' : ':' . $this->port());
 		if ($c === NULL && $a === NULL && $m === NULL) {
-			return $protocal . $this->host() . $port . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+			return './index.php' . '?' . $_SERVER['QUERY_STRING'];
 		} else {
 			$config = config('system', true);
 			switch ($config['pathmode']) {
@@ -60,7 +59,7 @@ class http
 					$parameter = http_build_query(array_merge($temp,$array));
 			}
 			$query = ($query === NULL) ? '' : '#' . $query;
-			return $protocal . $this->host() . $port . $_SERVER['PHP_SELF'] .(empty($parameter)?'':'?'). $parameter . $query;
+			return './index.php' .(empty($parameter)?'':'?'). $parameter . $query;
 		}
 	}
 
