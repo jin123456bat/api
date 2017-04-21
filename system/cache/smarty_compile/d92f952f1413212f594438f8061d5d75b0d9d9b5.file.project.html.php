@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 12:08:47
+<?php /* Smarty version Smarty-3.1.16, created on 2017-04-21 13:25:36
          compiled from "D:\wamp\www\api\application\template\front\project.html" */ ?>
 <?php /*%%SmartyHeaderCode:913456d55c79b27c94-76643037%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd92f952f1413212f594438f8061d5d75b0d9d9b5' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\project.html',
-      1 => 1492488526,
+      1 => 1492488591,
       2 => 'file',
     ),
   ),
@@ -409,6 +409,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 				});
 			});
 			
+			<?php if (isset($_SESSION['api_id'])&&$_SESSION['api_id']==$_smarty_tpl->tpl_vars['project']->value['uid']) {?>
 			$('.user_list').on('click','.badge-warning',function(){
 				var uid = $(this).data('uid');
 				$.post('./index.php?m=ajax&c=project&a=removeUser',{pid:'<?php echo $_GET['id'];?>
@@ -420,6 +421,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['project_user']['last']      
 				});
 				$(this).remove();
 			});
+			<?php }?>
 			
 			$('.group').on('click',function(){
 				window.location = '<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('a'=>'group','id'=>$_GET['id']),$_smarty_tpl);?>
