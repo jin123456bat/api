@@ -171,7 +171,13 @@
 											<span class="help-block"> 将本次请求得到的cookie保存起来 </span>
 										</div>
 									</div>
-									
+									<div class="form-group">
+										<label class="col-md-1 control-label">超时设置</label>
+										<div class="col-md-2">
+											<input type="text" class="form-control" name="api_timeout" value="5" placeholder="单位秒">
+											<span class="help-block"> 设置接口超时时间 </span>
+										</div>
+									</div>
 								</div>
 								<div class="form-actions">
 									<div class="row">
@@ -345,6 +351,7 @@
 				api_with_cookie:$('input[name=api_with_cookie]:checked').length,
 				api_refresh_cookie:$('input[name=api_refresh_cookie]:checked').length,
 				param_type:'{%$c_api.param_type%}',
+				api_timeout:parseInt($('input[name=api_timeout]').val()),
 			};
 			
 			obj.get = {};
@@ -370,24 +377,34 @@
 			});
 			$.post('{%url m=ajax c=api a=demo%}',obj,function(response){
 				try{
-					global_last_request_response = response;
-					$('#last_msec').html(response.last_msec+' ms').parents('li').removeClass('display-none');
-					$('.header').html(response.header);
-					if(response.content_type == 'image')
+					if(response.code==1)
 					{
-						$('.result').html('<img src="'+response.content+'">');
+						global_last_request_response = response.body;
+						$('#last_msec').html(global_last_request_response.last_msec+' ms').parents('li').removeClass('display-none');
+						$('.header').html(global_last_request_response.header);
+						if(response.content_type == 'image')
+						{
+							$('.result').html('<img src="'+global_last_request_response.content+'">');
+						}
+						else
+						{
+							$('#setExample').parents('li').removeClass('display-none');
+							$('.result').html(APP.format(global_last_request_response.content));
+						}
 					}
-					else
+					else if(response.code==1001)
 					{
-						$('#setExample').parents('li').removeClass('display-none');
-						$('.result').html(APP.format(response.content));
+						global_last_request_response = {};
+						$('.result').html('Sorry!请求超时');
+						$('.header').html('Sorry!请求超时');
+						$('#last_msec').html(parseInt($('input[name=api_timeout]').val())*1000+' ms').parents('li').removeClass('display-none');
 					}
 				}
 				catch(err)
 				{
-					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
-					$('.header').html(response.header);
-					$('.result').html(htmlspecialchars(response.content));
+					$('#last_msec').html(global_last_request_response.last_msec+' ms').removeClass('display-none');
+					$('.header').html(global_last_request_response.header);
+					$('.result').html(htmlspecialchars(global_last_request_response.content));
 				}
 			});
 			return false;

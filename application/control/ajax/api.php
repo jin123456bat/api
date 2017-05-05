@@ -281,13 +281,16 @@ class api extends ajax
 			$url .= '&'.http_build_query($class->getPostParam());
 		}
 		
+		//超时时间
+		$timeout = $this->post('api_timeout',5);
+		
 		$userHelper = new user();
 		$uid = $userHelper->getUserId();
 		$curl = curl_init($url);
 		curl_setopt ( $curl, CURLOPT_POST, 1 );
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $curl, CURLOPT_POSTFIELDS, $class->getPostParam() );
-		curl_setopt ( $curl, CURLOPT_TIMEOUT, 5);
+		curl_setopt ( $curl, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt ( $curl, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt ( $curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt ( $curl, CURLOPT_HEADER, true);
@@ -305,6 +308,13 @@ class api extends ajax
 		}
 		
 		$response = curl_exec($curl);
+		if($response === false)
+		{
+			if(curl_errno($curl) == CURLE_OPERATION_TIMEDOUT)
+			{
+				return new json(1001,'timeout');
+			}
+		}
 		
 		//请求返回的状态码
 		$http_code = curl_getinfo($curl,CURLINFO_HTTP_CODE);
@@ -343,7 +353,7 @@ class api extends ajax
 				$content_type = 'image';
 			}
 		}
-		return new json([
+		return new json(json::OK,NULL,[
 			'header' => $header,
 			'content' => $body,
 			'last_msec' => $last_msec,

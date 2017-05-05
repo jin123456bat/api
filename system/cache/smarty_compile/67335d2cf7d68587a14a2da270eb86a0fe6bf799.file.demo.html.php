@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2017-04-18 11:50:41
+<?php /* Smarty version Smarty-3.1.16, created on 2017-05-05 15:22:49
          compiled from "D:\wamp\www\api\application\template\front\demo.html" */ ?>
 <?php /*%%SmartyHeaderCode:1202856d6cd0bb074d3-21572018%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '67335d2cf7d68587a14a2da270eb86a0fe6bf799' => 
     array (
       0 => 'D:\\wamp\\www\\api\\application\\template\\front\\demo.html',
-      1 => 1492485480,
+      1 => 1493968964,
       2 => 'file',
     ),
   ),
@@ -295,7 +295,13 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 											<span class="help-block"> 将本次请求得到的cookie保存起来 </span>
 										</div>
 									</div>
-									
+									<div class="form-group">
+										<label class="col-md-1 control-label">超时设置</label>
+										<div class="col-md-2">
+											<input type="text" class="form-control" name="api_timeout" value="5" placeholder="单位秒">
+											<span class="help-block"> 设置接口超时时间 </span>
+										</div>
+									</div>
 								</div>
 								<div class="form-actions">
 									<div class="row">
@@ -488,6 +494,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 				api_refresh_cookie:$('input[name=api_refresh_cookie]:checked').length,
 				param_type:'<?php echo $_smarty_tpl->tpl_vars['c_api']->value['param_type'];?>
 ',
+				api_timeout:parseInt($('input[name=api_timeout]').val()),
 			};
 			
 			obj.get = {};
@@ -514,24 +521,34 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['parameter']['last']       = 
 			$.post('<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0][0]->url(array('m'=>'ajax','c'=>'api','a'=>'demo'),$_smarty_tpl);?>
 ',obj,function(response){
 				try{
-					global_last_request_response = response;
-					$('#last_msec').html(response.last_msec+' ms').parents('li').removeClass('display-none');
-					$('.header').html(response.header);
-					if(response.content_type == 'image')
+					if(response.code==1)
 					{
-						$('.result').html('<img src="'+response.content+'">');
+						global_last_request_response = response.body;
+						$('#last_msec').html(global_last_request_response.last_msec+' ms').parents('li').removeClass('display-none');
+						$('.header').html(global_last_request_response.header);
+						if(response.content_type == 'image')
+						{
+							$('.result').html('<img src="'+global_last_request_response.content+'">');
+						}
+						else
+						{
+							$('#setExample').parents('li').removeClass('display-none');
+							$('.result').html(APP.format(global_last_request_response.content));
+						}
 					}
-					else
+					else if(response.code==1001)
 					{
-						$('#setExample').parents('li').removeClass('display-none');
-						$('.result').html(APP.format(response.content));
+						global_last_request_response = {};
+						$('.result').html('Sorry!请求超时');
+						$('.header').html('Sorry!请求超时');
+						$('#last_msec').html(parseInt($('input[name=api_timeout]').val())*1000+' ms').parents('li').removeClass('display-none');
 					}
 				}
 				catch(err)
 				{
-					$('#last_msec').html(response.last_msec+' ms').removeClass('display-none');
-					$('.header').html(response.header);
-					$('.result').html(htmlspecialchars(response.content));
+					$('#last_msec').html(global_last_request_response.last_msec+' ms').removeClass('display-none');
+					$('.header').html(global_last_request_response.header);
+					$('.result').html(htmlspecialchars(global_last_request_response.content));
 				}
 			});
 			return false;
