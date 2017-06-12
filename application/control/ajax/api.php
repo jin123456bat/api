@@ -278,7 +278,7 @@ class api extends ajax
 		}
 		else
 		{
-			$url .= '&'.http_build_query($class->getPostParam());
+			$url .= '&'.http_build_query($class->getGetParam());
 		}
 		
 		//超时时间

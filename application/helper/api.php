@@ -17,11 +17,22 @@ class api extends parameter
 	function getPostParam()
 	{
 		$sign = $this->sign($this->_url, $this->_post, $this->_partner, $this->_key);
-		return array(
-			'data' => $this->_data,
+		$data = array(
 			'partner' => $this->_partner,
 			'sign' => $sign
 		);
+		
+		//'data' => $this->_post,
+		if (is_array($this->_post))
+		{
+			foreach ($this->_post as $key => $value)
+			{
+				$key = 'data['.$key.']';
+				$data[$key] = $value;
+			}
+		}
+			
+		return $data;
 	}
 	
 	function getGetParam()
